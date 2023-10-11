@@ -1,0 +1,1 @@
+[28-Jul-2022 14:01:08 UTC] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home/hyundaia/game.hyundaiangiang.com/app/Http/Kernel.php on line 4

@@ -45,6 +45,13 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     Route::get('khaosat/panel','CauHinhController@getKhaoSatPanel')->name('khaosat.panel');
     Route::get('khaosat/getlist','CauHinhController@getKhaoSatList')->name('khaosat.getlist');
     Route::post('khaosat/delete','CauHinhController@deleteKhaoSat')->name('khaosat.delete');
+
+    Route::get('quayso','QuaySoController@index')->name('quayso.panel');
+    Route::get('quayso/ajax/list','QuaySoController@getDanhSach')->name("quayso.danhsach");
+    Route::post('quayso/ajax/post','QuaySoController@postAjax');
+    Route::get('batdauquay','QuaySoController@batDauQuaySo')->name('quayso');
+    Route::post('quayso/ajax/set','QuaySoController@setSo');
+
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');

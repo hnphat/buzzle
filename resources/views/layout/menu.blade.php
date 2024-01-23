@@ -36,6 +36,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('quayso.panel')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Quay số
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

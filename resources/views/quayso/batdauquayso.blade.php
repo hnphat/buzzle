@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <title>Quay số</title>
@@ -123,6 +123,8 @@
         let arr = {!! json_encode($data) !!};
         let len_arr = arr.length;
         $("#batDau").click(function(){
+            const audio = new Audio("./music/quayso.mp3");
+            audio.play();
             let i = 0;
             let started = setInterval(() => {
                 if (i <= len_arr)
@@ -136,7 +138,6 @@
 
             setTimeout(() => {
                 clearInterval(started);
-
                 $.ajax({
                     type:'POST',
                     url: "{{ url('management/quayso/ajax/set/')}}",      
@@ -158,7 +159,7 @@
                     return value != removeItem;
                 });
                 console.log("Dãy số hiện tại: " + arr);
-            }, 5000);
+            }, 26000);
            
         });
     });

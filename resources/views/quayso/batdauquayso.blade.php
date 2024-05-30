@@ -159,7 +159,7 @@
                     return value != removeItem;
                 });
                 console.log("Dãy số hiện tại: " + arr);
-            }, 26000);
+            }, 15000);
            
         });
     });

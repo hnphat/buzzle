@@ -34,95 +34,20 @@
         <div class="row container">
             <div class="col-md-4"> 
                 <div class="form-group">
-                    <label>Hình nền quay thưởng</label>
+                    <label>Hình nền quay số</label>
                     <input class="form-control" type="text" placeholder="VD: https://abc.com/anh.jpg" name="hinhNen" />
-                </div>
-                <div class="form-group">
-                    <label>Màu khung</label>
-                    <input name="mauKhung" class="form-control" type="text" placeholder="VD: #233211"/>
-                </div>
-                <div class="form-group">
-                    <label>Độ dày khung</label>
-                    <input name="doDay" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Độ chói ngoài viền</label>
-                    <input name="choiNgoai" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>      
-                <div class="form-group">
-                    <label>Nút (từ trên)</label>
-                    <input name="btnTop" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Nút (từ trái)</label>
-                    <input name="btnLeft" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>   
-                <div class="form-group">
-                    <label>Tốc độ xoay phần thưởng</label>
-                    <input name="tocDoXoay" class="form-control" type="text" placeholder="VD: 500,1000,2000..."/>
                 </div>               
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4">           
                 <div class="form-group">
-                    <label>Độ chói trong viền</label>
-                    <input name="choiTrong" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Độ rộng khung tối đa</label>
-                    <input name="doRong" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Chiều cao khung</label>
-                    <input name="chieuCao" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Vị trí (so với bên trên)</label>
-                    <input name="viTriTren" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-                <div class="form-group">
-                    <label>Vị trí (so với bên trái)</label>
-                    <input name="viTriTrai" class="form-control" type="text" placeholder="VD: 10px, 20px,..."/>
-                </div>
-            </div>
-            <div class="col-md-4">  
-            <div class="form-group">
-                    <label>Thử nghiệm</label>
-                    <select name="test" class="form-control">
-                        <option value="1">Có</option>
-                        <option value="0">Không</option>
-                    </select>
-                </div>              
-                <div class="form-group">
-                    <label>Chế độ quay</label>
+                    <label>Chọn trò chơi</label>
                     <select name="cheDoQuay" class="form-control">
-                        <option value="1">Quay thưởng </option>
-                        <option value="2">Quay thưởng bỏ chọn</option>
+                        <option value="1">Game lật hình</option>
+                        <option value="2">Trả lời trắc nghiệm</option>
                     </select>
-                    <p><i>1/ Chế độ quay thưởng: Khách hàng nhập thông tin rồi tiến hành quay thưởng, phần thưởng nhận đc sẽ lưu vào cơ sỡ dữ liệu của khách hàng. Sử dụng dữ liệu <strong class="text-danger">Ảnh chủ đề</strong> để hiển thị cho khách hàng <strong>chọn</strong>, sử dụng <strong class="text-danger">Chi tiết ảnh</strong> để ghi nhận phần thưởng. Hình ảnh sẽ không bị xoá ở chế độ này.</i></p>
+                    <p><i>1/ Game lật hình -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào game chọn hình giống nhau -> chiến thắng -> trả lời khảo sát -> nhận quà -> kết thúc.</i></p>
                     <p><i>2/ Chế độ quay thưởng bỏ chọn: Phần thưởng sẽ được quay ngẫu nhiên và tự xoá chính nó khi quay trúng. Sử dụng dữ liệu <strong class="text-danger">Ảnh chủ đề</strong> để quay ngẫu nhiên và tự xoá chính nó trong cơ sỡ dữ liệu, kèm <strong class="text-danger">Chi tiết ảnh</strong> liên quan cũng sẽ bị xoá</i></p>
-                </div>
-                <!-- <div class="form-group">
-                    <label>Âm thanh quay (chế độ bỏ chọn)</label>
-                    <input name="amThanh" class="form-control" type="text" placeholder="VD: https://abc.com/amthanh.mp3"/>
-                </div> -->
-                <div class="form-group">
-                    <label>Thời gian chờ kết quả (chế độ bỏ chọn)</label>
-                    <input name="thoiGianCho" class="form-control" type="text" placeholder="VD: 1000 (tương ứng 1s)"/>
-                </div>
-                <div class="form-group">
-                    <label>Tải trang bắt đầu quay số (chế độ bỏ chọn)</label>
-                    <select name="batDauTrucTiep" class="form-control">
-                        <option value="1">Có </option>
-                        <option value="2">Không (Dùng nút BẮT ĐẦU)</option>
-                    </select>                  
-                </div>
-                <div class="form-group">
-                    <label>Cho phép quay số (chế độ bỏ chọn)</label>
-                    <select name="active" class="form-control">
-                        <option value="1">Có </option>
-                        <option value="0">Không</option>
-                    </select>   
-                </div>
+                </div> 
             </div>
         </div>
         <button id="saveConfig" class="btn btn-info">LƯU CẤU HÌNH</button>

@@ -20,9 +20,12 @@
 
         html,body{
         /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
-        background-image: url('./images/bg2024.jpg');
-        background-size: cover;
+        /* background-image: url('./images/bg2024s.jpg'); */
+        background-image: url('{{$conf['hinhNen']}}');
+        background-size:contain;
+        background-position:center;
         background-repeat: no-repeat;
+        background-color: black;
         height: 100%;
         font-family: 'Numans', sans-serif;
         }

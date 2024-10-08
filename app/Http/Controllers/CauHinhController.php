@@ -26,24 +26,8 @@ class CauHinhController extends Controller
     }
 
     public function saveConfig(Request $request) {
-        $data["hinhNen"] = $request->hinhNen;
-        $data["mauKhung"] = $request->mauKhung;
-        $data["doDay"] = $request->doDay;
-        $data["choiNgoai"] = $request->choiNgoai;
-        $data["choiTrong"] = $request->choiTrong;
-        $data["doRong"] = $request->doRong;
-        $data["chieuCao"] = $request->chieuCao;
-        $data["viTriTren"] = $request->viTriTren;
-        $data["viTriTrai"] = $request->viTriTrai;
-        $data["cheDoQuay"] = $request->cheDoQuay;
-        $data["amThanh"] = $request->amThanh;
-        $data["thoiGianCho"] = $request->thoiGianCho;
-        $data["batDauTrucTiep"] = $request->batDauTrucTiep;
-        $data["active"] = $request->active;
-        $data["test"] = $request->test;
-        $data["btnTop"] = $request->btnTop;
-        $data["btnLeft"] = $request->btnLeft;
-        $data["tocDoXoay"] = $request->tocDoXoay;
+        $data["hinhNen"] = $request->hinhNen;       
+        $data["cheDoQuay"] = $request->cheDoQuay;        
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents('upload/cauhinh/config.json', $newJsonString);
         return response()->json([
@@ -63,6 +47,38 @@ class CauHinhController extends Controller
             ])->exists();
             if ($checkPoll) {               
                 return redirect()->back()->withInput()->with('error','Quý khách đã tham gia và đã chọn quà từ lần trước rồi ạ! Xin cảm ơn quý khách!');        
+            } else {
+                $id_guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->first()->id;
+                $guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->update([
+                    'hoTen' => $request->hoTen,
+                    'dienThoai' => $request->dienThoai,
+                    'diaChi' => $request->diaChi
+                ]);
+                if ($guest) {
+                    session([
+                        'guest' => $id_guest,
+                        'active' => 1,
+                        'bsx' => $request->bienSoXe
+                    ]);
+                    return redirect()->back()->withInput()->with('error','Quý khách đã đủ điều kiện tham gia chương trình, hệ thống sẽ chuyển chương trình trong 5 giây nữa. Vui lòng đợi....')->with('success','ok');
+                }                
+                else
+                    return redirect()->back()->withInput()->with('error','Vì lý do kỹ thuật hệ thống đang quá tải, quý khách vui lòng thử lại ạ. Hoặc liên hệ bộ phận CSKH 0868 50 50 50 để được hỗ trợ ạ! Xin cảm ơn.');  
+            }
+        }        
+        else
+        return redirect()->back()->withInput()->with('error','Xin cảm ơn Quý Khách đã quan tâm chương trình. Xe Quý Khách hàng chưa đủ điều kiện tham gia chương trình này. Hẹn Quý Khách ở các chương trình tiếp theo. Xin cảm ơn!');        
+    }
+
+    public function postSubmitTracNghiem(Request $request) {
+        $check = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->exists();
+        if($check) {
+            $checkPoll = Guest::where([
+                ['bienSoXe','=',strtoupper($request->bienSoXe)],
+                ['ghiChu','!=',null]
+            ])->exists();
+            if ($checkPoll) {               
+                return redirect()->back()->withInput()->with('error','Quý khách đã tham gia từ lần trước rồi ạ! Xin cảm ơn quý khách!');        
             } else {
                 $id_guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->first()->id;
                 $guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->update([
@@ -158,6 +174,8 @@ class CauHinhController extends Controller
     }
 
     public function routeView(){
+        $jsonString = file_get_contents('upload/cauhinh/config.json');
+        $data = json_decode($jsonString, true);   
         $nhom = NhomAnh::all();
         $flag = true;
         foreach($nhom as $row) {
@@ -169,10 +187,23 @@ class CauHinhController extends Controller
                 break;
             } 
         }
-        if ($flag)
-            return view('welcome');
+        if ($flag) {
+            switch($data["cheDoQuay"]) {
+                case 1: return view('welcome'); break;
+                case 2: return view('trochoi.tracnghiem'); break;
+                default: return "Máy chủ đang bảo trì!";
+            }
+        }
         else 
             return "Phần thưởng từ chương trình đã hết, xin quý khách vui lòng tham gia vào lần sau nhé. Xin cảm ơn quý khách!";
+    }
+
+    public function getTraLoiCauHoi() {
+        $bsx = session('bsx') ? session('bsx') : null;
+        if (session('active'))
+            return view('trochoi.tracnghiem.traloicauhoi');
+        else
+            return redirect()->route('trangchu');
     }
 
     public function getKhaoSat() {

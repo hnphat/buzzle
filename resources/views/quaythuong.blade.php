@@ -58,14 +58,6 @@
         }
 
         // Used like so
-        // let arr = ["upload/image/a1.png", 
-        // "upload/image/a2.png", 
-        // "upload/image/b1.png", 
-        // "upload/image/b2.png", 
-        // "upload/image/c1.png",
-        // "upload/image/c2.png",
-        // "upload/image/d1.png",
-        // "upload/image/d2.png"];
         let arr = {!! str_replace("\\", "", json_encode($pics))  !!};
         shuffle(arr);
         let counter = 0;

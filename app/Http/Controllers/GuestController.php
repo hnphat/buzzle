@@ -109,4 +109,42 @@ class GuestController extends Controller
             "code" => 500
         ]);
     }
+
+    public function postSoMayMan(Request $request) {
+        $idguest = session('guest') ? session('guest') : null;
+        if ($idguest != null) {
+            $guest = Guest::find($idguest);
+            $guest->ghiChu = $request->soMayMan;
+            $guest->save();
+            if ($guest){                
+                session([
+                    'active' => 0,
+                    'guest' => 0
+                ]);
+                return response()->json([
+                    'code' => 200,
+                    'message' => 'Success'
+                ]);
+            }
+            else 
+                return response()->json([
+                    'code' => 500,
+                    'message' => 'Fail'
+                ]);
+        }            
+        else
+            return response()->json([
+                'code' => 500,
+                'type' => 'error',
+                'message' => 'Không hợp lệ'
+            ]);
+    }
+
+    public function tachSo() {
+        $arr = [];
+        for ($i = 1; $i < 100; $i++) { 
+            array_push($i);
+        }
+        
+    }
 }

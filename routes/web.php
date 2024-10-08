@@ -51,14 +51,18 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     Route::post('quayso/ajax/post','QuaySoController@postAjax');
     Route::get('batdauquay','QuaySoController@batDauQuaySo')->name('quayso');
     Route::post('quayso/ajax/set','QuaySoController@setSo');
-
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');
 Route::get('nhanqua','CauHinhController@getNhanQua')->name('nhanqua');
 Route::post('setquatang','CauHinhController@setGift')->name('sendtocskh');
 Route::post('cauhinh/ajax/post','CauHinhController@postSubmit')->name('postthongtin');
+Route::post('cauhinh/ajax/post','CauHinhController@postSubmitTracNghiem')->name('postthongtintracnghiem');
 Route::post('khaosat/post','CauHinhController@postKhaoSat')->name('postkhaosat');
+
+Route::get('traloicauhoi','CauHinhController@getTraLoiCauHoi')->name('traloi.panel');
+Route::post('chonsomayman','GuestController@postSoMayMan')->name('chonsomayman.post');
+
 
 
 

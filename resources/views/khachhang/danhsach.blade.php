@@ -41,6 +41,7 @@
           <th>Quà tặng</th>
           <th>Tên</th>
           <th>Thời gian tham gia</th>
+          <th>Ghi chú</th>
           <th>Tác vụ</th>
       </tr>
       </thead>
@@ -194,6 +195,7 @@
                            return `${row.real_time}`
                         }
                     },
+                    { "data": "ghiChu" },
                     {
                         "data": null,
                         render: function(data, type, row) {                            

@@ -70,12 +70,14 @@ class QuaySoController extends Controller
     }
 
     public function batDauQuaySo() {
+        $jsonString = file_get_contents('upload/cauhinh/config.json');
+        $conf = json_decode($jsonString, true);   
         $data = QuaySo::select("*")->where('daChon', false)->orderBy('so')->get();
         $arr = [];
         foreach($data as $row) {
             array_push($arr, $row->so);
         }
-        return view('quayso.batdauquayso', ['data' => $arr]);
+        return view('quayso.batdauquayso', ['data' => $arr, 'conf' => $conf]);
     }
 
     public function setSo(Request $request) {

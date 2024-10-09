@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Guest;
+use App\QuaySo;
 use Excel;
 
 class GuestController extends Controller
@@ -76,6 +77,15 @@ class GuestController extends Controller
             ]);
     }
 
+    public function deleteAjaxAll(Request $request) {
+        Guest::truncate();
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Đã xóa tất cả',
+            'code' => 200
+        ]);
+    }
+
     public function importGuest(Request $request) {
         $this->validate($request,[
             'importFile'  => 'required|mimes:xls,xlsx|max:2048',
@@ -141,10 +151,59 @@ class GuestController extends Controller
     }
 
     public function tachSo() {
-        $arr = [];
-        for ($i = 1; $i < 100; $i++) { 
-            array_push($i);
+        $start = [];
+        $end = [];
+        $data = Guest::all();
+        foreach($data as $row) {
+            if ($row->ghiChu != null)
+                array_push($start,$row->ghiChu);
         }
-        
+
+        for($i = 1; $i < 100; $i++){
+            if (!in_array($i,$start))
+                array_push($end,$i);
+        }
+
+        return response()->json([
+            "type" => 'info',
+            "message" => 'Tách số',
+            "code" => 200,
+            "data" => $end
+        ]);
+    }
+
+    public function importNumber(Request $request) {
+        $this->validate($request,[
+            'importFile'  => 'required|mimes:xls,xlsx|max:2048',
+        ]);
+        $counter = 1;
+        $numlen = 0;
+        if ($files = $request->file('importFile')) {
+            $theArray = Excel::toArray([], request()->file('importFile'));  
+            if (strval($theArray[0][0][0]) == "SO") {
+                QuaySo::truncate();
+                $numlen = count($theArray[0]);
+                for($i = 1; $i < $numlen; $i++) {
+                    $counter++;
+                    if ($theArray[0][$i][0]) {
+                        $data = new QuaySo();           
+                        $data->so = $theArray[0][$i][0];
+                        $data->save();
+                    }                 
+                }
+            }
+            if ($counter >= $numlen) {
+                return response()->json([
+                    "type" => 'info',
+                    "message" => 'Đã upload danh sách số từ file excel',
+                    "code" => 200
+                ]);
+            }
+        }
+        return response()->json([
+            "type" => 'error',
+            "message" => 'File: Không thể upload file và nội dung',
+            "code" => 500
+        ]);
     }
 }

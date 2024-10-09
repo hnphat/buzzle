@@ -10,8 +10,9 @@
 @section('content_header')
 @endsection
 @section('content')
-<div class="container_fluid">
+<div class="container_fluid">    
   <h1>Quản lý khảo sát</h1>
+  <button id="xoaAll" class="btn btn-danger btn-sm">Xoá tất cả</button><br/><br/>
   <table id="dataTable" class="display" style="width:100%">
       <thead>
       <tr class="bg-gradient-lightblue">
@@ -102,6 +103,32 @@
                 } );
             } ).draw();
 
+            //Delete all
+            $(document).on('click','#xoaAll', function(){
+                if(confirm('Bạn có chắc muốn xóa\nLưu ý: Không thể hoàn tác thao tác khi đã xoá?')) {
+                    $.ajax({
+                        url: "{{url('management/khaosat/deleteall')}}",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "_token": "{{csrf_token()}}"
+                        },
+                        success: function(response) {
+                            Toast.fire({
+                                icon: response.type,
+                                title: response.message
+                            })
+                            table.ajax.reload();
+                        },
+                        error: function() {
+                            Toast.fire({
+                                icon: 'warning',
+                                title: "Không thể xóa lúc này!"
+                            })
+                        }
+                    });
+                }
+            });
             //Delete data
             $(document).on('click','#delete', function(){
                 if(confirm('Bạn có chắc muốn xóa?')) {

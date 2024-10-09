@@ -14,7 +14,8 @@
 <div class="container_fluid">
   <h1>Quay số</h1>
   <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#addModal"><span class="fas fa-plus-circle"></span></button> 
-  <a class="btn btn-info" href="{{route('quayso')}}">BẮT ĐẦU QUAY SỐ</a>
+  <a class="btn btn-info" href="{{route('quayso')}}">BẮT ĐẦU QUAY SỐ</a>&nbsp;
+  <button id="importNum" class="btn btn-primary" data-toggle="modal" data-target="#importModal">NHẬP SỐ TỪ FILE</button><br/><br/>
   <br/><br/>
   <table id="dataTable" class="display" style="width:100%">
       <thead>
@@ -67,6 +68,40 @@
     </div>
     <!-- /.modal -->
 </div>   
+
+<!-- Medal Add -->
+<div class="modal fade" id="importModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">NHẬP SỐ TỪ FILE</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="importForm" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label>File import mẫu : <a href="./upload/template/number.xlsx"> Tải về </a></label>                             
+                        </div>  
+                        <div class="form-group">
+                            <label>File import</label> 
+                            <input type="file" class="form-control" name="importFile" placeholder="Choose File" id="importFile">
+                            <span>Tối đa 2MB (xlsx)</span>
+                        </div>     
+                        <i><strong class="text-danger">Lưu ý: Nhập số từ file sẽ xoá tất cả dãy số đang có và tạo dãy số mới</strong></i>     
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnImport" class="btn btn-primary" form="importForm">Lưu</button>
+                </div>
+                </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 <!--  MEDAL -->                 
 @endsection
 @section('script')
@@ -206,7 +241,7 @@
                     var formData = new FormData(this);
                     $.ajax({
                         type:'POST',
-                        url: "{{route('import.guest')}}",
+                        url: "{{route('import.num')}}",
                         data: formData,
                         cache: false,
                         contentType: false,

@@ -29,7 +29,9 @@
 <div class="container_fluid">
   <h1>Quản lý khách hàng</h1>
   <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#addModal"><span class="fas fa-plus-circle"></span></button> 
-  <button id="importGuest" class="btn btn-info" data-toggle="modal" data-target="#importModal">Import Guest</button><br/><br/>
+  <button id="importGuest" class="btn btn-info" data-toggle="modal" data-target="#importModal">Import Guest</button>&nbsp;
+  <button id="xoaAll" class="btn btn-danger">Xoá tất cả</button><br/><br/>
+  <br/><br/>
   <table id="dataTable" class="display" style="width:100%">
       <thead>
       <tr class="bg-gradient-lightblue">
@@ -250,6 +252,34 @@
                 if(confirm('Bạn có chắc muốn xóa?')) {
                     $.ajax({
                         url: "{{url('management/guest/ajax/delete/')}}",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "_token": "{{csrf_token()}}",
+                            "id": $(this).data('id')
+                        },
+                        success: function(response) {
+                            Toast.fire({
+                                icon: response.type,
+                                title: response.message
+                            })
+                            table.ajax.reload();
+                        },
+                        error: function() {
+                            Toast.fire({
+                                icon: 'warning',
+                                title: "Không thể xóa lúc này!"
+                            })
+                        }
+                    });
+                }
+            });
+
+            //Delete all
+            $(document).on('click','#xoaAll', function(){
+                if(confirm('Bạn có chắc muốn xóa\nLưu ý: Không thể hoàn tác thao tác khi đã xoá?')) {
+                    $.ajax({
+                        url: "{{url('management/guest/ajax/delete/all')}}",
                         type: "post",
                         dataType: "json",
                         data: {

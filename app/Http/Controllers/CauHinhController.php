@@ -264,6 +264,15 @@ class CauHinhController extends Controller
         }
     }
 
+    public function deleteKhaoSatAll(Request $request) {
+        KhaoSat::truncate();
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Đã xóa tất cả',
+            'code' => 200
+        ]);
+    }
+
     public function deleteKhaoSat(Request $request) {
         $ks = KhaoSat::find($request->id);       
         $ks->delete();

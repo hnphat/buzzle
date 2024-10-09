@@ -24,10 +24,7 @@
             <i>Xin chúc mừng quý khách đã trả lời đúng, vui lòng chọn số may mắn bên dưới!</i>
             <br/>
             <select id="soMayMan" class="form-control">
-                <option value="0" selected>Chọn số may mắn</option> 
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                
             </select>
             <button id="xacNhan" class="btn btn-info btn-sm">XÁC NHẬN</button>
         </h4>
@@ -70,6 +67,31 @@
         $("#guiTraLoi").click(function(){
             if ($("#chonc1").val() == 3 && $("#chonc2").val() == 1) {
                 $("#cauHoi").hide();
+                // Tách số chưa có chọn
+                $.ajax({
+                    url: "{{route('tachso.post')}}",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "_token": "{{csrf_token()}}"
+                    },
+                    success: function(response) {
+                        if (response.code == 200) {
+                            $("#soMayMan").empty();
+                            let txt = ``;
+                            txt += `<option value="0" selected>Chọn số may mắn</option>`
+                            let dulieu = response.data;
+                            for (let index = 0; index < dulieu.length; index++) {
+                                const ele = dulieu[index];
+                                txt += `<option value="${ele}">${ele}</option>`
+                            }
+                            $("#soMayMan").html(txt);
+                        }
+                    },
+                    error: function() {
+                    }
+                });       
+                // Kết thúc tách số   
                 setTimeout(() => {
                     $("#showResult").show();
                 }, 500);

@@ -12,7 +12,7 @@
 @section('content')
 <div class="container_fluid">    
   <h1>Quản lý khảo sát</h1>
-  <button id="xoaAll" class="btn btn-danger btn-sm">Xoá tất cả</button><br/><br/>
+  <!--<button id="xoaAll" class="btn btn-danger btn-sm">Xoá tất cả</button><br/><br/>-->
   <table id="dataTable" class="display" style="width:100%">
       <thead>
       <tr class="bg-gradient-lightblue">

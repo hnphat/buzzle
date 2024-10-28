@@ -57,11 +57,14 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');
+Route::get('khaosatv2','CauHinhController@getKhaoSatV2')->name('khaosatv2');
 Route::get('nhanqua','CauHinhController@getNhanQua')->name('nhanqua');
 Route::post('setquatang','CauHinhController@setGift')->name('sendtocskh');
 Route::post('cauhinh/ajax/post','CauHinhController@postSubmit')->name('postthongtin');
 Route::post('cauhinh/ajax/post/tracnghiem','CauHinhController@postSubmitTracNghiem')->name('postthongtintracnghiem');
 Route::post('khaosat/post','CauHinhController@postKhaoSat')->name('postkhaosat');
+Route::post('khaosat/postv2','CauHinhController@postKhaoSatV2')->name('postkhaosatv2');
+Route::post('khaosat/post/somayman','CauHinhController@postKhaoSatSoMayMan')->name('postkhaosat.somayman');
 
 Route::get('traloicauhoi','CauHinhController@getTraLoiCauHoi')->name('traloi.panel');
 Route::post('chonsomayman','GuestController@postSoMayMan')->name('chonsomayman.post');

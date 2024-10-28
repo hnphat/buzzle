@@ -30,7 +30,7 @@
   <h1>Quản lý khách hàng</h1>
   <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#addModal"><span class="fas fa-plus-circle"></span></button> 
   <button id="importGuest" class="btn btn-info" data-toggle="modal" data-target="#importModal">Import Guest</button>&nbsp;
-  <button id="xoaAll" class="btn btn-danger">Xoá tất cả</button><br/><br/>
+   <!--<button id="xoaAll" class="btn btn-danger">Xoá tất cả</button><br/><br/>-->
   <br/><br/>
   <table id="dataTable" class="display" style="width:100%">
       <thead>

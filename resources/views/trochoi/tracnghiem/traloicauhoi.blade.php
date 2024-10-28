@@ -5,7 +5,8 @@
     <base href="{{asset('')}}" />
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">      
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">   
+    <meta name="csrf-token" content="{{ csrf_token() }}">   
     <style>
         * {
             box-sizing: border-box;
@@ -23,8 +24,7 @@
         <h4 id="showResult" style="display:none;" class="text-success">
             <i>Xin chúc mừng quý khách đã trả lời đúng, vui lòng chọn số may mắn bên dưới!</i>
             <br/>
-            <select id="soMayMan" class="form-control">
-                
+            <select id="soMayMan" name="soMayMan" class="form-control">                
             </select>
             <button id="xacNhan" class="btn btn-info btn-sm">XÁC NHẬN</button>
         </h4>
@@ -45,9 +45,9 @@
             <option value="3">C</option>
         </select>
         </p>
-
         <p>
-        <strong>Câu hỏi 2: Khách hàng sử dụng dịch vụ tại Đại lý có cài đặt Hyundai Me có thể thực hiện tính năng đánh giá dịch vụ (thực hiện rating) trên ứng dụng Hyundai Me đúng hay sai?	</strong>	<br/>
+        <strong>Câu hỏi 2: Khách hàng sử dụng dịch vụ tại Đại lý và có cài đặt đăng nhập Hyundai Me trùng số điện thoại lưu trên báo giá có thể thực hiện đánh giá dịch vụ trên ứng dụng Hyundai Me đúng hay sai?</strong>	<br/>
+        <i>Sau khi ghi nhận ý kiến đánh giá của Quý khách, Đại lý sẽ hạn chế các cuộc gọi chăm sóc sau dịch vụ để tránh làm phiền KH</i><br/>
         A. Đúng	<br/>
         B. Sai	<br>
         Câu trả lời của quý khách:
@@ -99,8 +99,6 @@
                 alert("Quý khách trả lời chưa chính xác, hãy thử chọn lại đáp án khác!")
             }
         });
-        
-
         $("#xacNhan").click(function() {
             if ($("#soMayMan").val() == 0) {
                 alert("Quý khách vui lòng chọn một số may mắn!")
@@ -115,9 +113,12 @@
                     },
                     success: function(response) {
                         if (response.code == 200) {
-                            $("#showResult").hide();
+                            // $("#showResult").hide();
+                            // setTimeout(() => {
+                            //     $("#showEnd").show();
+                            // }, 500);
                             setTimeout(() => {
-                                $("#showEnd").show();
+                                open("{{route('khaosatv2')}}","_self");
                             }, 500);
                         }
                     },
@@ -126,6 +127,41 @@
                 });                
             }
         });
+        // $(document).one('click','#guiKhaoSat', function(){
+        //     if ($("#soMayMan").val() == 0) {
+        //         alert("Quý khách vui lòng chọn một số may mắn!")
+        //     } {
+        //         $.ajaxSetup({
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             }
+        //         });
+        //         $("#khaoSatForm").one("submit", submitFormFunction);
+        //         function submitFormFunction(e) {
+        //             e.preventDefault();   
+        //             var formData = new FormData(this);
+        //             $.ajax({
+        //                 type:'POST',
+        //                 url: "{{ route('postkhaosat.somayman') }}",
+        //                 data: formData,
+        //                 cache: false,
+        //                 contentType: false,
+        //                 processData: false,
+        //                 success: (response) => {
+        //                     if (response.code == 200) {
+        //                         $("#showResult").hide();
+        //                         setTimeout(() => {
+        //                             $("#showEnd").show();
+        //                         }, 500);
+        //                     }
+        //                 },
+        //                     error: function(response){
+        //                 }
+        //             });
+        //         }
+        //     }
+            
+        // });
     });
 </script>
 </body>

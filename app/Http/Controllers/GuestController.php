@@ -126,11 +126,7 @@ class GuestController extends Controller
             $guest = Guest::find($idguest);
             $guest->ghiChu = $request->soMayMan;
             $guest->save();
-            if ($guest){                
-                session([
-                    'active' => 0,
-                    'guest' => 0
-                ]);
+            if ($guest){        
                 return response()->json([
                     'code' => 200,
                     'message' => 'Success'

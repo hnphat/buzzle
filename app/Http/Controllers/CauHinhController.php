@@ -181,10 +181,10 @@ class CauHinhController extends Controller
         foreach($nhom as $row) {
             if (!$row->isPic && $row->counter <= 0) {
                 $flag = false;
+                break;
             } 
             if (!$row->isPic && $row->counter > 0) {
                 $flag = true;
-                break;
             } 
         }
         if ($flag) {
@@ -201,7 +201,7 @@ class CauHinhController extends Controller
     public function getTraLoiCauHoi() {
         $bsx = session('bsx') ? session('bsx') : null;
         if (session('active'))
-            return view('trochoi.tracnghiem.traloicauhoi');
+            return view('trochoi.tracnghiem.traloicauhoi',['bsx' => $bsx]);
         else
             return redirect()->route('trangchu');
     }
@@ -210,6 +210,14 @@ class CauHinhController extends Controller
         $bsx = session('bsx') ? session('bsx') : null;
         if (session('active'))
             return view('khaosat', ['bsx' => $bsx]);
+        else
+            return redirect()->route('trangchu');
+    }
+
+    public function getKhaoSatV2() {
+        $bsx = session('bsx') ? session('bsx') : null;
+        if (session('active'))
+            return view('khaosatv2', ['bsx' => $bsx]);
         else
             return redirect()->route('trangchu');
     }
@@ -255,6 +263,96 @@ class CauHinhController extends Controller
                 'type' => 'info',
                 'message' => 'Đã thực hiện khảo sát'
             ]);
+        } else {
+            return response()->json([
+                'code' => 500,
+                'type' => 'error',
+                'message' => 'Không thể thực hiện'
+            ]);
+        }
+    }
+
+    public function postKhaoSatV2(Request $request) {
+        $ks = new KhaoSat();
+        $ks->bienSoXe = $request->bienSo;
+        $ks->c1 = $request->c1;
+        $ks->c2 = $request->c2;
+        $ks->c3 = $request->c3;
+        $ks->c4 = $request->c4;
+        $ks->c5 = $request->c5;
+        $ks->c6 = $request->c6 ? $request->c6 : "Không";
+        $ks->c7 = $request->c7;
+        $ks->c8 = $request->c8;
+        $ks->c9 = $request->c9;
+        $ks->c10 = $request->c10 ? $request->c10 : "Không";
+        $ks->save();
+        if ($ks) {
+            $firstGift = NhomAnh::select("*")->where("isPic",false)->orderBy('id','desc')->first();
+            if ($firstGift) {
+                $up = NhomAnh::find($firstGift->id);
+                $up->counter = $firstGift->counter - 1;
+                $up->save();
+            }            
+            session([
+                'active' => 0,
+                'guest' => 0
+            ]);
+            return response()->json([
+                'code' => 200,
+                'type' => 'info',
+                'message' => 'Đã thực hiện khảo sát'
+            ]);
+        } else {
+            return response()->json([
+                'code' => 500,
+                'type' => 'error',
+                'message' => 'Không thể thực hiện'
+            ]);
+        }
+    }
+
+    public function postKhaoSatSoMayMan(Request $request) {
+        $ks = new KhaoSat();
+        $ks->bienSoXe = $request->bienSo;
+        $ks->c1 = $request->c1;
+        $ks->c2 = $request->c2;
+        $ks->c3 = $request->c3;
+        $ks->c4 = $request->c4;
+        $ks->c5 = $request->c5;
+        $ks->c6 = $request->c6 ? $request->c6 : "Không";
+        $ks->c7 = $request->c7;
+        $ks->c8 = $request->c8;
+        $ks->c9 = $request->c9;
+        $ks->c10 = $request->c10 ? $request->c10 : "Không";
+        $ks->save();
+        if ($ks) {
+            $idguest = session('guest') ? session('guest') : null;
+            if ($idguest != null) {
+                $guest = Guest::find($idguest);
+                $guest->ghiChu = $request->soMayMan;
+                $guest->save();
+                if ($guest){                
+                    session([
+                        'active' => 0,
+                        'guest' => 0
+                    ]);
+                    return response()->json([
+                        'code' => 200,
+                        'message' => 'Đã thực hiện khảo sát'
+                    ]);
+                }
+                else 
+                    return response()->json([
+                        'code' => 500,
+                        'message' => 'Fail'
+                    ]);
+            }            
+            else
+                return response()->json([
+                    'code' => 500,
+                    'type' => 'error',
+                    'message' => 'Không hợp lệ'
+                ]);
         } else {
             return response()->json([
                 'code' => 500,

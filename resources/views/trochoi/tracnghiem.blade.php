@@ -13,6 +13,12 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-image: url("{{asset('images/nen.jpg')}}");
+      background-attachment: fixed;
+    }
+  </style>
 </head>
 <body class="container">
   <h4>Xin chào Quý khách hàng, để tham gia chương trình Quý khách vui lòng điền thông tin như bên dưới</h4>

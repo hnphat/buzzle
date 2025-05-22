@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
 <head>
-    <title>Khảo sát</title>
+    <title>Mảnh ghép kiến thức</title>
     <base href="{{asset('')}}" />
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -22,7 +22,7 @@
     <div class="container">
         <h4 id="showEnd" style="display:none;">
             Hyundai An Giang chân thành cảm ơn Quý khách hàng đã tin tưởng và sử dụng dịch vụ của Đại lý<br/>
-            Kính mời Quý khách hàng theo dõi Buổi Livestream trực tiếp trên Fanpage vào ngày 16/11/2024 để có cơ hội nhận phần quà trị giá lên đến 3.000.000 đồng
+            Kính mời Quý khách hàng theo dõi Buổi Livestream trực tiếp trên Fanpage vào lúc 14h30 ngày 18/11/2024 để có cơ hội nhận phần quà trị giá lên đến 3.000.000 đồng
             <p class="text-center"><img src="./upload/image/cr.png" alt="CSKH" style="max-width: 400px;"></p>
         </h4>     
         <form action="" method="post" id="khaoSatForm">

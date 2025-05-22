@@ -27,7 +27,8 @@ class CauHinhController extends Controller
 
     public function saveConfig(Request $request) {
         $data["hinhNen"] = $request->hinhNen;       
-        $data["cheDoQuay"] = $request->cheDoQuay;        
+        $data["cheDoQuay"] = $request->cheDoQuay;   
+        $data["linkGoogleForm"] = $request->linkGoogleForm;        
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents('upload/cauhinh/config.json', $newJsonString);
         return response()->json([
@@ -191,6 +192,7 @@ class CauHinhController extends Controller
             switch($data["cheDoQuay"]) {
                 case 1: return view('welcome'); break;
                 case 2: return view('trochoi.tracnghiem'); break;
+                case 3: return view('trochoi.khaosat', ['linkGoogleDrive' => $data["linkGoogleForm"]]); break;
                 default: return "Máy chủ đang bảo trì!";
             }
         }

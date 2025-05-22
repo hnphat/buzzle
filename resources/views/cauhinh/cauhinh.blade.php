@@ -44,10 +44,16 @@
                     <select name="cheDoQuay" class="form-control">
                         <option value="1">Game lật hình</option>
                         <option value="2">Trả lời trắc nghiệm</option>
+                        <option value="3">Khảo sát</option>
                     </select>
                     <p><i>1/ Game lật hình -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào game chọn hình giống nhau -> chiến thắng -> trả lời khảo sát -> nhận quà -> kết thúc.</i></p>
                     <p><i>2/ Trả lời trắc nghiệm -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào trả lời câu hỏi trắc nghiệm -> trả lời đúng chọn số máy mắn -> kết thúc</p>
+                    <p><i>3/ Khảo sát -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua mẫu khảo sát google form</p>
                 </div> 
+                <div class="form-group">
+                    <label>Nếu chọn trò chơi Khảo sát nhập link google form:</label>
+                    <input class="form-control" type="text" placeholder="Nhập link google form" name="linkGoogleForm" />
+                </div>   
             </div>
         </div>
         <button id="saveConfig" class="btn btn-info">LƯU CẤU HÌNH</button>
@@ -86,23 +92,8 @@
                             title: response.message
                         })                  
                         $("input[name=hinhNen]").val(response.data.hinhNen);  
-                        $("input[name=mauKhung]").val(response.data.mauKhung);
-                        $("input[name=doDay]").val(response.data.doDay);
-                        $("input[name=choiNgoai]").val(response.data.choiNgoai);
-                        $("input[name=choiTrong]").val(response.data.choiTrong);
-                        $("input[name=doRong]").val(response.data.doRong);
-                        $("input[name=chieuCao]").val(response.data.chieuCao);
-                        $("input[name=viTriTren]").val(response.data.viTriTren);
-                        $("input[name=viTriTrai]").val(response.data.viTriTrai);
                         $("select[name=cheDoQuay]").val(response.data.cheDoQuay);
-                        $("select[name=batDauTrucTiep]").val(response.data.batDauTrucTiep);
-                        $("select[name=active]").val(response.data.active);
-                        $("select[name=test]").val(response.data.test);
-                        // $("input[name=amThanh]").val(response.data.amThanh);
-                        $("input[name=thoiGianCho]").val(response.data.thoiGianCho);
-                        $("input[name=btnTop]").val(response.data.btnTop);
-                        $("input[name=btnLeft]").val(response.data.btnLeft);
-                        $("input[name=tocDoXoay]").val(response.data.tocDoXoay);
+                        $("input[name=linkGoogleForm]").val(response.data.linkGoogleForm);                          
                     },
                     error: function() {
                         Toast.fire({

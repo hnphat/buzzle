@@ -85,7 +85,8 @@ class CauHinhController extends Controller
                 $guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->update([
                     'hoTen' => $request->hoTen,
                     'dienThoai' => $request->dienThoai,
-                    'diaChi' => $request->diaChi
+                    'diaChi' => $request->diaChi,
+                    'ghiChu' => true
                 ]);
                 if ($guest) {
                     session([

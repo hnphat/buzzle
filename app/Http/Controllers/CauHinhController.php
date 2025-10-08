@@ -26,7 +26,8 @@ class CauHinhController extends Controller
     }
 
     public function saveConfig(Request $request) {
-        $data["hinhNen"] = $request->hinhNen;       
+        $data["hinhNen"] = $request->hinhNen;      
+        $data["hinhNenGhepHinh"] = $request->hinhNenGhepHinh;        
         $data["cheDoQuay"] = $request->cheDoQuay;   
         $data["linkGoogleForm"] = $request->linkGoogleForm;        
         $newJsonString = json_encode($data, JSON_PRETTY_PRINT);
@@ -121,6 +122,17 @@ class CauHinhController extends Controller
 
     }
 
+    public function getGhepHinh() {
+        $jsonString = file_get_contents('upload/cauhinh/config.json');
+        $data = json_decode($jsonString, true);   
+        return view('ghephinhstep2', ['data' => $data]);
+        // if (session('active'))
+        //     return view('ghephinhstep2', ['data' => $data]);
+        // else
+        //     return redirect()->route('trangchu');
+
+    }
+
     public function getNhanQua() { 
         $anh = NhomAnh::all();
         $arr = [];
@@ -194,6 +206,7 @@ class CauHinhController extends Controller
                 case 1: return view('welcome'); break;
                 case 2: return view('trochoi.tracnghiem'); break;
                 case 3: return view('trochoi.khaosat', ['linkGoogleDrive' => $data["linkGoogleForm"]]); break;
+                case 4: return view('trochoi.ghephinh'); break;
                 default: return "Máy chủ đang bảo trì!";
             }
         }

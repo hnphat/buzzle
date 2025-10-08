@@ -36,6 +36,10 @@
                 <div class="form-group">
                     <label>Hình nền quay số</label>
                     <input class="form-control" type="text" placeholder="VD: https://abc.com/anh.jpg" name="hinhNen" />
+                </div> 
+                <div class="form-group">
+                    <label>Hình cho trò ghép hình</label>
+                    <input class="form-control" type="text" placeholder="VD: https://abc.com/anh.jpg" name="hinhNenGhepHinh" />
                 </div>               
             </div>
             <div class="col-md-4">           
@@ -45,10 +49,12 @@
                         <option value="1">Game lật hình</option>
                         <option value="2">Trả lời trắc nghiệm</option>
                         <option value="3">Khảo sát</option>
+                        <option value="4">Ghép hình</option>
                     </select>
                     <p><i>1/ Game lật hình -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào game chọn hình giống nhau -> chiến thắng -> trả lời khảo sát -> nhận quà -> kết thúc.</i></p>
                     <p><i>2/ Trả lời trắc nghiệm -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào trả lời câu hỏi trắc nghiệm -> trả lời đúng chọn số máy mắn -> kết thúc</p>
                     <p><i>3/ Khảo sát -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua mẫu khảo sát google form</p>
+                    <p><i>4/ Ghép hình -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua chơi trò chơi -> thực hiện khảo sát</p>
                 </div> 
                 <div class="form-group">
                     <label>Nếu chọn trò chơi Khảo sát nhập link google form:</label>
@@ -92,6 +98,7 @@
                             title: response.message
                         })                  
                         $("input[name=hinhNen]").val(response.data.hinhNen);  
+                        $("input[name=hinhNenGhepHinh]").val(response.data.hinhNenGhepHinh);  
                         $("select[name=cheDoQuay]").val(response.data.cheDoQuay);
                         $("input[name=linkGoogleForm]").val(response.data.linkGoogleForm);                          
                     },

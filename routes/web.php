@@ -65,7 +65,9 @@ Route::post('cauhinh/ajax/post/tracnghiem','CauHinhController@postSubmitTracNghi
 Route::post('khaosat/post','CauHinhController@postKhaoSat')->name('postkhaosat');
 Route::post('khaosat/postv2','CauHinhController@postKhaoSatV2')->name('postkhaosatv2');
 Route::post('khaosat/post/somayman','CauHinhController@postKhaoSatSoMayMan')->name('postkhaosat.somayman');
-
+// ghép hình
+Route::get('ghephinh','CauHinhController@getGhepHinh')->name('ghephinh');
+// ----
 Route::get('traloicauhoi','CauHinhController@getTraLoiCauHoi')->name('traloi.panel');
 Route::post('chonsomayman','GuestController@postSoMayMan')->name('chonsomayman.post');
 Route::post('tachso','GuestController@tachSo')->name('tachso.post');

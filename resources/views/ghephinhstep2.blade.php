@@ -117,13 +117,13 @@
     <label style="display: none;" class="btn" for="fileInput">Ảnh…</label><input id="fileInput" type="file" accept="image/*" />
     <div class="sel-wrap">
       <select id="piecePreset" title="Chọn số mảnh nhanh">
-        <!-- <option value="4">4</option> -->
+        <!-- <option value="4">4</option>
         <option value="6">6</option>
-        <!-- <option value="8">8</option>
+        <option value="8">8</option>
         <option value="9" selected>9</option>
-        <option value="10">10</option>
+        <option value="10">10</option> -->
         <option value="12">12</option>
-        <option value="15">15</option>
+        <!-- <option value="15">15</option>
         <option value="16">16</option> -->
       </select>
       <input style="display: none;" id="customPieces" type="number" min="2" max="100" step="1" placeholder="#" title="Tự nhập số mảnh" />

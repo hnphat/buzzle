@@ -22,6 +22,7 @@ class Guest extends Migration
             $table->string('quaTang')->nullable();
             $table->string('dapAn')->nullable();
             $table->boolean('isPoll')->default(false);
+            $table->string('ghiChu')->nullable();
             $table->timestamps();
         });
     }

@@ -41,7 +41,7 @@
           <th>Biển số xe</th>
           <th>Địa chỉ</th>
           <th>Quà tặng</th>
-          <th>Tên</th>
+          <th>Kết quả</th>
           <th>Thời gian tham gia</th>
           <th>Ghi chú</th>
           <th>Tác vụ</th>

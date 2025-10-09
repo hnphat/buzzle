@@ -21,8 +21,8 @@
   </style>
 </head>
 <body class="container">
-  <!-- <h4>Xin chào Quý khách hàng, để tham gia chương trình Quý khách vui lòng điền thông tin như bên dưới</h4>
-  <form method="post" action="{{route('postthongtintracnghiem')}}" id="addForm" autocomplete="off">
+  <h4>Xin chào Quý khách hàng, để tham gia chương trình Quý khách vui lòng điền thông tin như bên dưới</h4>
+  <form method="post" action="{{route('kiemtratruocghephinh')}}" id="addForm" autocomplete="off">
       @csrf
       <div class="form-group">
           <label>Biển số xe <span class="text-danger">(*)</span></label> 
@@ -53,12 +53,11 @@
                   </div>
           </div>
       </div>
-  </div>      -->
-  <h1>Demo</h1>
+  </div>     
   
   <script>
     $(document).ready(function(){
-      open("{{route('ghephinh')}}",'_self');
+      // open("{{route('ghephinh')}}",'_self');
       @if (session('error'))     
         $("#notifyModal").modal();       
       @endif

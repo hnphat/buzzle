@@ -58,12 +58,16 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');
 Route::get('khaosatv2','CauHinhController@getKhaoSatV2')->name('khaosatv2');
+Route::get('khaosatforghephinh','CauHinhController@getKhaoSatForGhepHinh')->name('khaosat.ghephinh');
 Route::get('nhanqua','CauHinhController@getNhanQua')->name('nhanqua');
 Route::post('setquatang','CauHinhController@setGift')->name('sendtocskh');
+Route::post('setcompletetime','CauHinhController@setTimeComplete')->name('setcomplete');
 Route::post('cauhinh/ajax/post','CauHinhController@postSubmit')->name('postthongtin');
 Route::post('cauhinh/ajax/post/tracnghiem','CauHinhController@postSubmitTracNghiem')->name('postthongtintracnghiem');
+Route::post('cauhinh/ajax/post/ghephinh','CauHinhController@kiemTraTruocGhepHinh')->name('kiemtratruocghephinh');
 Route::post('khaosat/post','CauHinhController@postKhaoSat')->name('postkhaosat');
 Route::post('khaosat/postv2','CauHinhController@postKhaoSatV2')->name('postkhaosatv2');
+Route::post('khaosatforghephinh/post','CauHinhController@postKhaoSatForGhepHinh')->name('postkhaosatforghephinh');
 Route::post('khaosat/post/somayman','CauHinhController@postKhaoSatSoMayMan')->name('postkhaosat.somayman');
 // ghép hình
 Route::get('ghephinh','CauHinhController@getGhepHinh')->name('ghephinh');

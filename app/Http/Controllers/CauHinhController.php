@@ -117,12 +117,10 @@ class CauHinhController extends Controller
                 return redirect()->back()->withInput()->with('error','Quý khách đã tham gia từ lần trước rồi ạ! Xin cảm ơn quý khách!');        
             } else {
                 $id_guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->first()->id;
-                // $guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->update([
-                //     'hoTen' => $request->hoTen,
-                //     'dienThoai' => $request->dienThoai,
-                //     'diaChi' => $request->diaChi,
-                //     'ghiChu' => false
-                // ]);
+                $guest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->update([
+                    'hoTen' => $request->hoTen,
+                    'dienThoai' => $request->dienThoai
+                ]);
                 $infoGuest = Guest::where('bienSoXe',strtoupper($request->bienSoXe))->first();
                 session([
                     'guest' => $id_guest,

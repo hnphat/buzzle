@@ -29,6 +29,15 @@
           <input required placeholder="Ví dụ: 67A-23123 (không chứa khoảng trắng)" type="text" name="bienSoXe" value="{{ old('bienSoXe') }}"  class="form-control">
           <span><i>Quý khách vui lòng nhập đúng định dạng biển số xe như ví dụ để hệ thống kiểm tra xác thực đúng thông tin</i></span>
       </div>          
+      <div class="form-group">
+          <label>Họ và tên</label> 
+          <input required placeholder="Họ và tên" type="text" name="hoTen" value="{{ old('hoTen') }}" class="form-control">
+      </div>    
+      <div class="form-group">
+          <label>Điện thoại <span class="text-danger">(*)</span></label> 
+          <input required placeholder="Điện thoại" type="text" name="dienThoai" value="{{ old('dienThoai') }}" class="form-control">
+          <span><i>Quý khách vui lòng nhập đúng số điện thoại để tiện liên hệ chăm sóc ạ</i></span>
+      </div>       
       <button id="btnAdd" class="btn btn-primary">THAM GIA</button>         
   </form>
   <div>

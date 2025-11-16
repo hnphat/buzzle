@@ -15,8 +15,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     body {
-      background-image: url("{{asset('images/nen.jpg')}}");
-      background-attachment: fixed;
+      /* background-image: url("{{asset('images/nen.jpg')}}");
+      background-attachment: fixed; */
+      background-color: #99ffff;
     }
   </style>
 </head>

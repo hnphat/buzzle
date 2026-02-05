@@ -50,11 +50,13 @@
                         <option value="2">Trả lời trắc nghiệm</option>
                         <option value="3">Khảo sát</option>
                         <option value="4">Ghép hình</option>
+                        <option value="5">Vua tiếng Việt</option>
                     </select>
                     <p><i>1/ Game lật hình -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào game chọn hình giống nhau -> chiến thắng -> trả lời khảo sát -> nhận quà -> kết thúc.</i></p>
                     <p><i>2/ Trả lời trắc nghiệm -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào trả lời câu hỏi trắc nghiệm -> trả lời đúng chọn số máy mắn -> kết thúc</p>
                     <p><i>3/ Khảo sát -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua mẫu khảo sát google form</p>
                     <p><i>4/ Ghép hình -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua chơi trò chơi -> thực hiện khảo sát</p>
+                    <p><i>5/ Vua tiếng Việt -> Ghép chữ (dùng cho nhân viên Hyundai)</p>
                 </div> 
                 <div class="form-group">
                     <label>Nếu chọn trò chơi Khảo sát nhập link google form:</label>

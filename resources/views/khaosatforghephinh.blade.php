@@ -12,8 +12,6 @@
             box-sizing: border-box;
         }
         body {
-            /* background-image: url("{{asset('images/nen.jpg')}}");
-            background-attachment: fixed; */
             background-color: #99ffff;
         }
     </style>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Guest;
 use App\NhomAnh;
 use App\KhaoSat;
+use Illuminate\Support\Facades\Auth;
 use Excel;
 class CauHinhController extends Controller
 {
@@ -266,6 +267,12 @@ class CauHinhController extends Controller
                 case 2: return view('trochoi.tracnghiem'); break;
                 case 3: return view('trochoi.khaosat', ['linkGoogleDrive' => $data["linkGoogleForm"]]); break;
                 case 4: return view('trochoi.ghephinh'); break;
+                case 5: {
+                    if (Auth::check()) {
+                        return view('trochoi.vuatiengviet');
+                    } else
+                        return "<h1 style='color:red;'>Bạn cần đăng nhập để chơi trò chơi này!</h1>";
+                }; 
                 default: return "Máy chủ đang bảo trì!";
             }
         }

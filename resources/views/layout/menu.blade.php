@@ -52,6 +52,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('vuatiengviet.panel')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               New App
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

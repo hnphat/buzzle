@@ -54,6 +54,11 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     Route::post('quayso/ajax/post','QuaySoController@postAjax');
     Route::get('batdauquay','QuaySoController@batDauQuaySo')->name('quayso');
     Route::post('quayso/ajax/set','QuaySoController@setSo');
+
+    // Vua tiếng việt
+    Route::get('vuatiengviet','VuaTiengVietController@index')->name('vuatiengviet.panel');
+    Route::get('vuatiengviet/ajax/list','VuaTiengVietController@getDanhSach')->name("vuatiengviet.danhsach");
+    
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');

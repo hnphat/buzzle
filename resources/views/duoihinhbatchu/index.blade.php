@@ -1,6 +1,6 @@
 @extends('layout.index')
 @section('title')
-    <title>Vua Tiếng Việt</title>
+    <title>Đuổi hình bắt chữ</title>
 @endsection
 @section('css')
     <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
@@ -12,18 +12,16 @@
 @endsection
 @section('content')
 <div class="container_fluid">
-  <h1>Vua Tiếng Việt</h1>
-  <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#addModal"><span class="fas fa-plus-circle"></span></button> 
-  &nbsp;
-  <button id="importData" class="btn btn-primary" data-toggle="modal" data-target="#importModal">NHẬP TỪ FILE</button><br/><br/>
+  <h1>Đuổi hình bắt chữ</h1>
+  <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#importModal"><span class="fas fa-plus-circle"></span></button> 
   <hr>
   <table id="dataTable" class="display" style="width:100%">
       <thead>
       <tr class="bg-gradient-lightblue">
           <!-- <th>TT</th> -->
           <th>ID</th>
-          <th>Câu hỏi</th>
-          <th>Câu trả lời</th>   
+          <th>Hình ảnh</th>
+          <th>Đáp án</th>   
           <th>Trạng thái</th>
           <th>Ghi chú</th> 
           <th>Tác vụ</th>
@@ -34,99 +32,28 @@
       </tbody>
   </table>
 </div>
-<!--  MEDAL -->
-<div>
-    <!-- Medal Add -->
-    <div class="modal fade" id="addModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Thêm câu hỏi mới</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body"> 
-                    <form method="POST" id="addForm" autocomplete="off">
-                        @csrf
-                        <div class="form-group">
-                            <label>Câu hỏi</label> 
-                            <input placeholder="Câu hỏi" type="text" name="cauHoi" class="form-control" required>
-                        </div>  
-                        <div class="form-group">
-                            <label>Câu trả lời</label> 
-                            <input placeholder="Câu trả lời" type="text" name="cauTraLoi" class="form-control" required>
-                        </div>    
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                    <button id="btnAdd" class="btn btn-primary" form="addForm">Lưu</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-
-    <!-- Medal Edit-->
-    <div class="modal fade" id="editModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Sửa câu hỏi</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body"> 
-                    <form method="POST" id="editForm" autocomplete="off">
-                        @csrf
-                        <input type="hidden" name="id" id="edit_id">
-                        <div class="form-group">
-                            <label>Câu hỏi</label> 
-                            <input placeholder="Câu hỏi" type="text" name="ecauHoi" class="form-control" required>
-                        </div>  
-                        <div class="form-group">
-                            <label>Câu trả lời</label> 
-                            <input placeholder="Câu trả lời" type="text" name="ecauTraLoi" class="form-control" required>
-                        </div>    
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                    <button id="btnEdit" class="btn btn-primary" form="editForm">Lưu</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
     <!-- Medal Import Data -->
     <div class="modal fade" id="importModal">
             <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">NHẬP TỪ FILE</h4>
+                    <h4 class="modal-title">THÊM CÂU HỎI MỚI</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body"> 
                     <form method="POST" id="importForm" autocomplete="off" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
                         <div class="form-group">
-                            <label>File import mẫu : <a href="./upload/template/vuatiengviet.xlsx"> Tải về </a></label>                             
-                        </div>  
-                        <div class="form-group">
-                            <label>File import</label> 
-                            <input type="file" class="form-control" name="importFile" placeholder="Choose File" id="importFile">
+                            <label>Hình ảnh câu hỏi</label> 
+                            <input type="file" class="form-control" name="importFile" placeholder="Choose File" id="importFile" required>
                             <span>Tối đa 2MB (xlsx)</span>
                         </div>     
+                        <div class="form-group">
+                            <label>Câu trả lời</label> 
+                            <input placeholder="Câu trả lời" type="text" name="cauTraLoi" class="form-control" required>
+                        </div> 
                         <i><strong class="text-danger">Lưu ý: Nhập từ file sẽ xoá tất cả dữ liệu đang có và tạo dữ liệu mới</strong></i>     
                     </form>
                 </div>

@@ -62,6 +62,14 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     Route::post('vuatiengviet/ajax/delete','VuaTiengVietController@deleteAjax');
     Route::post('vuatiengviet/ajax/edit','VuaTiengVietController@editAjax');
     Route::post('vuatiengviet/ajax/import','VuaTiengVietController@importVuaTiengViet')->name("import.vuatiengviet");
+
+    // Đuổi hình bắt chữ
+    Route::get('duoihinhbatchu','GameController@index')->name('duoihinhbatchu.panel');
+    
+    
+    // Đổi mật khẩu
+    Route::get('doimatkhau','UserController@getDoiMatKhau')->name('doimatkhau');
+    Route::post('doimatkhau/post','UserController@postDoiMatKhau')->name('change.password');
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');

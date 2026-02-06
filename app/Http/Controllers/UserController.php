@@ -27,4 +27,25 @@ class UserController extends Controller
         }
         return view('login', ['error' => 'Sai tài khoản hoặc mật khẩu']);
     }
+
+    public function getDoiMatKhau(){
+        return view('admin.doimatkhau');
+    }
+
+    public function postDoiMatKhau(Request $request){
+        $user = Auth::user();
+        $currentPassword = $request->input('oldPass');
+        $newPassword = $request->input('newPass');
+
+        if (password_verify($currentPassword, $user->password)) {
+            // Mật khẩu hiện tại đúng, tiến hành cập nhật mật khẩu mới
+            $user->password = bcrypt($newPassword);
+            $user->save();
+
+            return response()->json(['code' => 200, 'type' => 'success', 'message' => 'Đổi mật khẩu thành công']);
+        } else {
+            // Mật khẩu hiện tại không đúng
+            return response()->json(['code' => 400, 'type' => 'error', 'message' => 'Mật khẩu cũ không đúng'], 400);
+        }
+    }
 }

@@ -17,6 +17,7 @@ class VuaTiengViet extends Migration
             $table->increments('id');
             $table->string('cauhoi');
             $table->string('cautraloi');
+            $table->boolean('isActive')->default(true);
             $table->string('ghiChu')->nullable();
             $table->timestamps();
         });

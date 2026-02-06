@@ -14,6 +14,8 @@
 <div class="container_fluid">
   <h1>Vua Tiếng Việt</h1>
   <button id="pressAdd" class="btn btn-success" data-toggle="modal" data-target="#addModal"><span class="fas fa-plus-circle"></span></button> 
+  &nbsp;
+  <button id="importData" class="btn btn-primary" data-toggle="modal" data-target="#importModal">NHẬP TỪ FILE</button><br/><br/>
   <hr>
   <table id="dataTable" class="display" style="width:100%">
       <thead>
@@ -22,6 +24,7 @@
           <th>ID</th>
           <th>Câu hỏi</th>
           <th>Câu trả lời</th>   
+          <th>Trạng thái</th>
           <th>Ghi chú</th> 
           <th>Tác vụ</th>
       </tr>
@@ -38,7 +41,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Khởi tạo dãy số</h4>
+                    <h4 class="modal-title">Thêm câu hỏi mới</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -47,19 +50,88 @@
                     <form method="POST" id="addForm" autocomplete="off">
                         @csrf
                         <div class="form-group">
-                            <label>Số bắt đầu</label> 
-                            <input placeholder="Số bắt đầu" type="number" name="soBatDau" class="form-control" required>
+                            <label>Câu hỏi</label> 
+                            <input placeholder="Câu hỏi" type="text" name="cauHoi" class="form-control" required>
                         </div>  
                         <div class="form-group">
-                            <label>Số kết thúc</label> 
-                            <input placeholder="Số kết thúc" type="number" name="soKetThuc" class="form-control" required>
-                        </div>
-                        <i><strong class="text-danger">Lưu ý: Khởi tạo sẽ xoá tất cả dãy số đang có và tạo dãy số mới</strong></i>     
+                            <label>Câu trả lời</label> 
+                            <input placeholder="Câu trả lời" type="text" name="cauTraLoi" class="form-control" required>
+                        </div>    
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
                     <button id="btnAdd" class="btn btn-primary" form="addForm">Lưu</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <!-- Medal Edit-->
+    <div class="modal fade" id="editModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sửa câu hỏi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="editForm" autocomplete="off">
+                        @csrf
+                        <input type="hidden" name="id" id="edit_id">
+                        <div class="form-group">
+                            <label>Câu hỏi</label> 
+                            <input placeholder="Câu hỏi" type="text" name="ecauHoi" class="form-control" required>
+                        </div>  
+                        <div class="form-group">
+                            <label>Câu trả lời</label> 
+                            <input placeholder="Câu trả lời" type="text" name="ecauTraLoi" class="form-control" required>
+                        </div>    
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button id="btnEdit" class="btn btn-primary" form="editForm">Lưu</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Medal Import Data -->
+    <div class="modal fade" id="importModal">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">NHẬP TỪ FILE</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="importForm" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label>File import mẫu : <a href="./upload/template/vuatiengviet.xlsx"> Tải về </a></label>                             
+                        </div>  
+                        <div class="form-group">
+                            <label>File import</label> 
+                            <input type="file" class="form-control" name="importFile" placeholder="Choose File" id="importFile">
+                            <span>Tối đa 2MB (xlsx)</span>
+                        </div>     
+                        <i><strong class="text-danger">Lưu ý: Nhập từ file sẽ xoá tất cả dữ liệu đang có và tạo dữ liệu mới</strong></i>     
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="btnImport" class="btn btn-primary" form="importForm">Lưu</button>
                 </div>
                 </div>
             <!-- /.modal-content -->
@@ -67,6 +139,7 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <!--  MEDAL -->  
 </div>                  
 @endsection
 @section('script')
@@ -112,11 +185,25 @@
                     { "data": "id" },
                     { "data": "cauhoi" },
                     { "data": "cautraloi" },
+                    {
+                        "data": null,
+                        render: function(data, type, row) {
+                            if (data.isActive) {
+                                return `<span class="badge badge-success">Chưa trả lời</span>`;
+                            } else {
+                                return `<span class="badge badge-danger">Đã trả lời</span>`;
+                            }
+                        }
+                    },  
                     { "data": "ghiChu" },
                     {
                         "data": null,
                         render: function(data, type, row) {
-                            return `<button id="delete" data-id="`+data.id+`" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span></button>`;
+                            return `
+                                <button id="edit" data-id="`+data.id+`" class="btn btn-primary btn-sm mr-1" data-toggle="modal" data-target="#editModal"><span class="fas fa-edit"></span></button>
+                                &nbsp;
+                                <button id="delete" data-id="`+data.id+`" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span></button>
+                            `;
                         }
                     }   
                 ]
@@ -128,46 +215,50 @@
             //     } );
             // } ).draw();
 
+            $("#pressAdd").click(function(){
+                setTimeout(() => {
+                   $('input[name=cauHoi]').focus();
+                }, 500);
+            });
+
             // Add data
             $("#btnAdd").click(function(e){  
                 e.preventDefault(); 
-                if (confirm("Xác nhận khởi tạo dãy số mới và xoá dãy số cũ?")) {
-                    $.ajax({
-                        type:'POST',
-                        url: "{{ url('management/quayso/ajax/post/')}}",      
-                        dataType: "json",
-                        data: $('#addForm').serialize(),             
-                        beforeSend: function () {
-                            $("#btnAdd").attr('disabled', true).html("Đang xử lý....");
-                        },
-                        success: (response) => { 
-                            $('#addForm')[0].reset();
-                            Toast.fire({
-                                icon: response.type,
-                                title: response.message
-                            })
-                            $("#addModal").modal('hide');
-                            $("#btnAdd").attr('disabled', false).html("LƯU");
-                            table.ajax.reload();
-                        },
-                            error: function(response){
-                            Toast.fire({
-                                icon: 'error',
-                                title: 'Lỗi ' + response.responseJSON.message
-                            })
-                            $("#addModal").modal('hide');
-                            $("#btnAdd").attr('disabled', false).html("LƯU");
-                            console.log(response);
-                        }
-                    });
-                }
+                $.ajax({
+                    type:'POST',
+                    url: "{{ url('management/vuatiengviet/ajax/post/')}}",      
+                    dataType: "json",
+                    data: $('#addForm').serialize(),             
+                    beforeSend: function () {
+                        $("#btnAdd").attr('disabled', true).html("Đang xử lý....");
+                    },
+                    success: (response) => { 
+                        $('#addForm')[0].reset();
+                        Toast.fire({
+                            icon: response.type,
+                            title: response.message
+                        })
+                        $("#addModal").modal('hide');
+                        $("#btnAdd").attr('disabled', false).html("LƯU");
+                        table.ajax.reload();
+                    },
+                        error: function(response){
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Lỗi ' + response.responseJSON.message
+                        })
+                        $("#addModal").modal('hide');
+                        $("#btnAdd").attr('disabled', false).html("LƯU");
+                        console.log(response);
+                    }
+                });
             });
 
             //Delete data
             $(document).on('click','#delete', function(){
                 if(confirm('Bạn có chắc muốn xóa?')) {
                     $.ajax({
-                        url: "{{url('management/guest/ajax/delete/')}}",
+                        url: "{{url('management/vuatiengviet/ajax/delete/')}}",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -191,6 +282,37 @@
                 }
             });
 
+            //Delete data
+            $(document).on('click','#edit', function(){
+                $.ajax({
+                    url: "{{url('management/vuatiengviet/ajax/edit/')}}",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "_token": "{{csrf_token()}}",
+                        "id": $(this).data('id')
+                    },
+                    success: function(response) {
+                        if (response.code == 200) {
+                            $('#edit_id').val(response.data.id);
+                            $('input[name=ecauHoi]').val(response.data.cauhoi);
+                            $('input[name=ecauTraLoi]').val(response.data.cautraloi);
+                        } else {
+                            Toast.fire({
+                                icon: response.type,
+                                title: response.message
+                            })
+                        }
+                    },
+                    error: function() {
+                        Toast.fire({
+                            icon: 'warning',
+                            title: "Không thể chỉnh sửa lúc này!"
+                        })
+                    }
+                });
+            });
+
             // Import data
             $("#btnImport").click(function(){   
                 $.ajaxSetup({
@@ -204,7 +326,7 @@
                     var formData = new FormData(this);
                     $.ajax({
                         type:'POST',
-                        url: "{{route('import.num')}}",
+                    url: "{{route('import.vuatiengviet')}}",
                         data: formData,
                         cache: false,
                         contentType: false,

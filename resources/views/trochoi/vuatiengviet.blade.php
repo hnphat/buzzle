@@ -10,7 +10,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
@@ -148,20 +148,102 @@
       </p>
     </div>
     <div class="col-md-9">
+      <p id="btnBatDau">
+        <img src="{{asset('images/assets/start.gif')}}" alt="Starting" style="width: 100%; max-width: 600px; cursor: pointer;" />
+      </p>
+      <div id="startShow" style="display: none;">
         <div class="row text-center mt-5">
-          <h1 id="cauHoi">x/n/â/m/ù/u/a</h1>
-        </div>
-        <div class="row">
-          <button id="btnTruoc" class="btn btn-primary mt-3">CÂU TRƯỚC</button>
-          &nbsp;&nbsp;&nbsp;
-          <button id="btnSau" class="btn btn-primary mt-3">CÂU SAU</button>
-          &nbsp;&nbsp;&nbsp;
-          <button id="btnDapAn" class="btn btn-primary mt-3">ĐÁP ÁN</button>
-        </div>
-        <div class="row text-center mt-5">
-          <h1 id="ketQua">mùa xuân</h1>
-        </div>
+            <input type="hidden" id="idCurrent"/>
+            <h1 id="cauHoi"></h1>
+          </div>
+          <div class="row">
+            <button id="btnSau" class="btn btn-primary mt-3">CÂU KẾ TIẾP</button>
+            &nbsp;&nbsp;&nbsp;
+            <button id="btnDapAn" class="btn btn-primary mt-3">ĐÁP ÁN</button>
+          </div>
+          <div class="row text-center mt-5">
+            <h1 id="ketQua" style="display: none;"></h1>
+          </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $("#btnBatDau").click(function() {
+        $("#btnBatDau").hide();
+        $("#startShow").show();
+        // Load first question
+        $.ajax({
+            type:'POST',
+            url: "{{ route('getfirstquestion') }}",
+            data: {
+              "_token": "{{ csrf_token() }}"
+            },
+            success: (response) => {
+                if (response.code == 200) {
+                    $("#cauHoi").text(response.data.cauhoi);
+                    $("#ketQua").text(response.data.cautraloi);
+                    $("#idCurrent").val(response.data.id);
+                } else {
+                    alert("Hết câu hỏi!");
+                }
+            },
+            error: function(response){
+                alert("Lỗi tải câu hỏi!");
+            }
+        });
+      });
+
+      $("#btnDapAn").click(function() {
+        if (confirm("Bạn có chắc muốn xem đáp án?")) {
+          $("#ketQua").show();
+          // Chuyển sang not active
+          $.ajax({
+            type:'POST',
+            url: "{{ route('setnotactive') }}",
+            data: {
+              "_token": "{{ csrf_token() }}",
+              "id": $("#idCurrent").val()
+            },
+            success: (response) => {
+                if (response.code == 200) {
+                    console.log("Đã chuyển sang not active");
+                } else {
+                    alert("Lỗi set not active!");
+                }
+            },
+            error: function(response){
+                alert("Lỗi set not active!");
+            }
+        });
+        }
+      });
+
+      $("#btnSau").click(function() {
+        $("#ketQua").hide();
+        // Load next question
+        $.ajax({
+            type:'POST',
+            url: "{{ route('getfirstquestion') }}",
+            data: {
+              "_token": "{{ csrf_token() }}"
+            },
+            success: (response) => {
+                if (response.code == 200) {
+                    $("#cauHoi").text(response.data.cauhoi);
+                    $("#ketQua").text(response.data.cautraloi);
+                    $("#idCurrent").val(response.data.id);
+                } else {
+                    alert("Hết câu hỏi!");
+                }
+            },
+            error: function(response){
+                alert("Lỗi tải câu hỏi!");
+            }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

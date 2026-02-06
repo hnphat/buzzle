@@ -58,7 +58,10 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     // Vua tiếng việt
     Route::get('vuatiengviet','VuaTiengVietController@index')->name('vuatiengviet.panel');
     Route::get('vuatiengviet/ajax/list','VuaTiengVietController@getDanhSach')->name("vuatiengviet.danhsach");
-    
+    Route::post('vuatiengviet/ajax/post','VuaTiengVietController@postAjax');
+    Route::post('vuatiengviet/ajax/delete','VuaTiengVietController@deleteAjax');
+    Route::post('vuatiengviet/ajax/edit','VuaTiengVietController@editAjax');
+    Route::post('vuatiengviet/ajax/import','VuaTiengVietController@importVuaTiengViet')->name("import.vuatiengviet");
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');
@@ -80,6 +83,10 @@ Route::get('ghephinh','CauHinhController@getGhepHinh')->name('ghephinh');
 Route::get('traloicauhoi','CauHinhController@getTraLoiCauHoi')->name('traloi.panel');
 Route::post('chonsomayman','GuestController@postSoMayMan')->name('chonsomayman.post');
 Route::post('tachso','GuestController@tachSo')->name('tachso.post');
+// Vua tiếng việt
+Route::post('vuatiengviet/getfirstquestion','VuaTiengVietController@getFirstQuestion')->name("getfirstquestion");
+// Route::post('vuatiengviet/getnextquestion','VuaTiengVietController@getNextQuestion')->name("getnextquestion");
+Route::post('vuatiengviet/setnotactive','VuaTiengVietController@setNotActive')->name("setnotactive");
 
 
 

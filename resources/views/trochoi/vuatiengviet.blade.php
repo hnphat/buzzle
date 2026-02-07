@@ -140,6 +140,8 @@
   </style>
 </head>
 <body class="container-fluid">
+  <!-- Audio player for background music -->
+  <audio id="gameSong" style="display: none;"></audio>
   <div class="row justify-content-center">
     <div class="col-md-3">
       <p class="text-center mt-5">
@@ -169,8 +171,20 @@
   </div>
 
   <script>
+    // ==================== CẤU HÌNH BÀI HÁT ====================
+    // Thay đổi URL bài hát ở đây
+    var musicSong = "{{ asset('music/gameshowsong.mp3') }}"; // Đặt đường dẫn bài hát của bạn
+    // =========================================================
+
     $(document).ready(function() {
       $("#btnBatDau").click(function() {
+        // Phát nhạc khi bắt đầu trò chơi
+        var audio = document.getElementById('gameSong');
+        audio.src = musicSong;
+        audio.play().catch(function(error) {
+          console.log('Không thể phát nhạc:', error);
+        });
+
         $("#btnBatDau").hide();
         $("#startShow").show();
         // Load first question

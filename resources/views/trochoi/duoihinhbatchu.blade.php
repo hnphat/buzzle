@@ -72,6 +72,8 @@
   </style>
 </head>
 <body class="container-fluid">
+    <audio id="gameSong" style="display: none;"></audio>
+
     <p class="text-center" style="cursor: pointer;">
       <h1 id="duoiHinh" class="text-center">ĐUỔI HÌNH BẮT CHỮ</h1>
       <p class="text-center" id="btnBatDau" style="cursor: pointer;">
@@ -110,8 +112,18 @@
     </div> 
   <!--- -->  
   <script>
-    $(document).ready(function() {
+    // Thay đổi URL bài hát ở đây
+    var musicSong = "{{ asset('music/gameshowsong.mp3') }}"; // Đặt đường dẫn bài hát của bạn
+    // =========================================================
+    $(document).ready(function() {    
       $("#btnBatDau").click(function() {
+        // Phát nhạc khi bắt đầu trò chơi
+        var audio = document.getElementById('gameSong');
+        audio.src = musicSong;
+        audio.play().catch(function(error) {
+          console.log('Không thể phát nhạc:', error);
+        });
+
         $("#btnBatDau").hide();
         $("#startShow").show();
         // Load first question

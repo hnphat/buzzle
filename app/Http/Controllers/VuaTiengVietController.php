@@ -181,4 +181,34 @@ class VuaTiengVietController extends Controller
             ]);
         }
     }
+
+    public function postUpdate(Request $request){
+        $id = $request->id;
+        $cauhoi = $request->ecauHoi;
+        $cautraloi = $request->ecauTraLoi;
+        $entry = VuaTiengViet::find($id);
+        if($entry){
+            $entry->cauhoi = $cauhoi;
+            $entry->cautraloi = $cautraloi;
+            if($entry->save()){
+                return response()->json([
+                    'code' => 200,
+                    'type' => 'success',
+                    'message' => "Cập nhật câu hỏi thành công!"
+                ]);
+            }else{
+                return response()->json([
+                    'code' => 500,
+                    'type' => 'error',
+                    'message' => "Lỗi máy chủ"
+                ]);
+            }
+        }else{
+            return response()->json([
+                'code' => 404,
+                'type' => 'error',
+                'message' => "Câu hỏi không tồn tại"
+            ]);
+        }
+    }
 }

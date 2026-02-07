@@ -62,6 +62,7 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     Route::post('vuatiengviet/ajax/delete','VuaTiengVietController@deleteAjax');
     Route::post('vuatiengviet/ajax/edit','VuaTiengVietController@editAjax');
     Route::post('vuatiengviet/ajax/import','VuaTiengVietController@importVuaTiengViet')->name("import.vuatiengviet");
+    Route::post('vuatiengviet/ajax/update','VuaTiengVietController@postUpdate')->name("vuatiengviet.postupdate");
 
     // Đuổi hình bắt chữ
     Route::get('duoihinhbatchu','GameController@index')->name('duoihinhbatchu.panel');

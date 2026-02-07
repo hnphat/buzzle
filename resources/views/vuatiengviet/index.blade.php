@@ -313,6 +313,38 @@
                 });
             });
 
+            // Post Edit data
+            $("#btnEdit").click(function(e){  
+                e.preventDefault(); 
+                $.ajax({
+                    type:'POST',
+                    url: "{{ url('management/vuatiengviet/ajax/update/')}}",      
+                    dataType: "json",
+                    data: $('#editForm').serialize(),             
+                    beforeSend: function () {
+                        $("#btnEdit").attr('disabled', true).html("Đang xử lý....");
+                    },
+                    success: (response) => { 
+                        Toast.fire({
+                            icon: response.type,
+                            title: response.message
+                        })
+                        $("#editModal").modal('hide');
+                        $("#btnEdit").attr('disabled', false).html("LƯU");
+                        table.ajax.reload();
+                    },
+                        error: function(response){
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Lỗi ' + response.responseJSON.message
+                        })
+                        $("#editModal").modal('hide');
+                        $("#btnEdit").attr('disabled', false).html("LƯU");
+                        console.log(response);
+                    }
+                });
+            });
+
             // Import data
             $("#btnImport").click(function(){   
                 $.ajaxSetup({

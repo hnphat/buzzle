@@ -272,13 +272,14 @@ class CauHinhController extends Controller
                         return view('trochoi.vuatiengviet');
                     } else
                         return "<h1 style='color:red;'>Bạn cần đăng nhập để chơi trò chơi này!</h1>";
-                }; 
+                }; break;
                 case 6: {
                     if (Auth::check()) {
                         return view('trochoi.duoihinhbatchu');
                     } else
                         return "<h1 style='color:red;'>Bạn cần đăng nhập để chơi trò chơi này!</h1>";
-                }; 
+                }; break;
+                case 7: return view('trochoi.amthanh'); break;
                 default: return "<h1 style='color:red;'>Máy chủ đang bảo trì!</h1>";
             }
         }

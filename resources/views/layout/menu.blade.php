@@ -68,6 +68,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('amthanh.panel')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Âm thanh
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

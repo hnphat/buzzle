@@ -52,6 +52,7 @@
                         <option value="4">Ghép hình</option>
                         <option value="5">Vua tiếng Việt</option>
                         <option value="6">Đuổi hình bắt chữ</option>
+                        <option value="7">Âm thanh event</option>
                     </select>
                     <p><i>1/ Game lật hình -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào game chọn hình giống nhau -> chiến thắng -> trả lời khảo sát -> nhận quà -> kết thúc.</i></p>
                     <p><i>2/ Trả lời trắc nghiệm -> khách hàng nhập thông tin -> hệ thống xác nhận -> đúng thông tin khách hàng và còn quà tặng -> vào trả lời câu hỏi trắc nghiệm -> trả lời đúng chọn số máy mắn -> kết thúc</p>

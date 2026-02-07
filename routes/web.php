@@ -16,6 +16,8 @@ use \Illuminate\Support\Facades\Auth;
 Route::get('/', 'CauHinhController@routeView')->name('trangchu');
 Route::get('/admin', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('postlogin');
+Route::get('run', 'GameController@realTime')->name('action');
+Route::post('sethandled', 'GameController@setHandled')->name('action.sethandled');
 Route::get('/out',function(){
     Auth::logout();
     session([
@@ -75,6 +77,15 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
     // Đổi mật khẩu
     Route::get('doimatkhau','UserController@getDoiMatKhau')->name('doimatkhau');
     Route::post('doimatkhau/post','UserController@postDoiMatKhau')->name('change.password');
+
+    // Âm thanh
+    Route::get('amthanh','GameController@indexAmThanh')->name('amthanh.panel');
+    Route::get('amthanh/ajax/list','GameController@getDanhSachAmThanh')->name("amthanh.danhsach");
+    Route::post('amthanh/ajax/post','GameController@postAmThanh')->name("amthanh.post");
+    Route::post('amthanh/ajax/delete','GameController@deleteAmThanh')->name("amthanh.delete");
+    Route::post('amthanh/setamluong','GameController@setAmLuong')->name("amthanh.setamluong");
+    Route::post('amthanh/setdungphat','GameController@setDungPhat')->name("amthanh.setdungphat");
+    Route::post('amthanh/setphatnhac','GameController@setPhatNhac')->name("amthanh.setphatnhac");
 });
 Route::get('quaythuong','CauHinhController@getQuayThuong')->name('quaythuong');
 Route::get('khaosat','CauHinhController@getKhaoSat')->name('khaosat');

@@ -43,7 +43,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> 
-                    <form method="POST" id="importForm" autocomplete="off" enctype="multipart/form-data">
+                    <form method="POST" id="importForm" enctype="multipart/form-data" autocomplete="off" enctype="multipart/form-data">
                         @csrf 
                         <div class="form-group">
                             <label>Hình ảnh câu hỏi</label> 
@@ -97,7 +97,7 @@
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ],
-                ajax: "{{route('vuatiengviet.danhsach')}}",
+                ajax: "{{route('duoihinhbatchu.danhsach')}}",
                 "columnDefs": [ {
                     "searchable": false,
                     "orderable": false,
@@ -110,7 +110,12 @@
                 columns: [
                     // { "data": null },
                     { "data": "id" },
-                    { "data": "cauhoi" },
+                    {
+                        "data": null,
+                        render: function(data, type, row) {
+                            return "<a href='upload/duoihinhbatchu/"+row.cauhoi+"' target='_blank'><img src='upload/duoihinhbatchu/"+row.cauhoi+"' style='max-width:200px; height:auto;'/></a>";                            
+                        }
+                    }, 
                     { "data": "cautraloi" },
                     {
                         "data": null,
@@ -127,8 +132,6 @@
                         "data": null,
                         render: function(data, type, row) {
                             return `
-                                <button id="edit" data-id="`+data.id+`" class="btn btn-primary btn-sm mr-1" data-toggle="modal" data-target="#editModal"><span class="fas fa-edit"></span></button>
-                                &nbsp;
                                 <button id="delete" data-id="`+data.id+`" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span></button>
                             `;
                         }
@@ -148,44 +151,11 @@
                 }, 500);
             });
 
-            // Add data
-            $("#btnAdd").click(function(e){  
-                e.preventDefault(); 
-                $.ajax({
-                    type:'POST',
-                    url: "{{ url('management/vuatiengviet/ajax/post/')}}",      
-                    dataType: "json",
-                    data: $('#addForm').serialize(),             
-                    beforeSend: function () {
-                        $("#btnAdd").attr('disabled', true).html("Đang xử lý....");
-                    },
-                    success: (response) => { 
-                        $('#addForm')[0].reset();
-                        Toast.fire({
-                            icon: response.type,
-                            title: response.message
-                        })
-                        $("#addModal").modal('hide');
-                        $("#btnAdd").attr('disabled', false).html("LƯU");
-                        table.ajax.reload();
-                    },
-                        error: function(response){
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Lỗi ' + response.responseJSON.message
-                        })
-                        $("#addModal").modal('hide');
-                        $("#btnAdd").attr('disabled', false).html("LƯU");
-                        console.log(response);
-                    }
-                });
-            });
-
             //Delete data
             $(document).on('click','#delete', function(){
                 if(confirm('Bạn có chắc muốn xóa?')) {
                     $.ajax({
-                        url: "{{url('management/vuatiengviet/ajax/delete/')}}",
+                        url: "{{url('management/duoihinhbatchu/ajax/delete/')}}",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -209,37 +179,6 @@
                 }
             });
 
-            //Delete data
-            $(document).on('click','#edit', function(){
-                $.ajax({
-                    url: "{{url('management/vuatiengviet/ajax/edit/')}}",
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        "_token": "{{csrf_token()}}",
-                        "id": $(this).data('id')
-                    },
-                    success: function(response) {
-                        if (response.code == 200) {
-                            $('#edit_id').val(response.data.id);
-                            $('input[name=ecauHoi]').val(response.data.cauhoi);
-                            $('input[name=ecauTraLoi]').val(response.data.cautraloi);
-                        } else {
-                            Toast.fire({
-                                icon: response.type,
-                                title: response.message
-                            })
-                        }
-                    },
-                    error: function() {
-                        Toast.fire({
-                            icon: 'warning',
-                            title: "Không thể chỉnh sửa lúc này!"
-                        })
-                    }
-                });
-            });
-
             // Import data
             $("#btnImport").click(function(){   
                 $.ajaxSetup({
@@ -253,7 +192,7 @@
                     var formData = new FormData(this);
                     $.ajax({
                         type:'POST',
-                        url: "{{route('import.vuatiengviet')}}",
+                        url: "{{route('duoihinhbatchu.post')}}",
                         data: formData,
                         cache: false,
                         contentType: false,
@@ -275,10 +214,9 @@
                         },
                             error: function(response){
                             Toast.fire({
-                                icon: 'info',
+                                icon: 'error',
                                 title: 'Lỗi ' + response.responseJSON.message
                             })
-                            $("#importModal").modal('hide');
                             $("#btnImport").attr('disabled', false).html("LƯU");
                         }
                     });

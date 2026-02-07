@@ -65,8 +65,12 @@ Route::group(['prefix' => 'management', 'middleware' => 'login'], function(){
 
     // Đuổi hình bắt chữ
     Route::get('duoihinhbatchu','GameController@index')->name('duoihinhbatchu.panel');
-    
-    
+    Route::get('duoihinhbatchu/ajax/list','GameController@getDanhSach')->name("duoihinhbatchu.danhsach");
+    Route::post('duoihinhbatchu/ajax/post','GameController@postHinh')->name("duoihinhbatchu.post");
+    Route::post('duoihinhbatchu/ajax/delete','GameController@deleteAjax')->name("duoihinhbatchu.delete");
+    Route::post('duoihinhbatchu/laycauhoi','GameController@layCauHoi')->name("duoihinhbatchu.laycauhoi");
+    Route::post('duoihinhbatchu/setnotactive','GameController@setNotActive')->name("duoihinhbatchu.setnotactive");
+
     // Đổi mật khẩu
     Route::get('doimatkhau','UserController@getDoiMatKhau')->name('doimatkhau');
     Route::post('doimatkhau/post','UserController@postDoiMatKhau')->name('change.password');

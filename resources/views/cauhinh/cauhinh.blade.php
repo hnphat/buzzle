@@ -58,6 +58,7 @@
                     <p><i>3/ Khảo sát -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua mẫu khảo sát google form</p>
                     <p><i>4/ Ghép hình -> khách hàng nhập thông tin biển số xe -> hệ thống xác nhận -> Chuyển qua chơi trò chơi -> thực hiện khảo sát</p>
                     <p><i>5/ Vua tiếng Việt -> Ghép chữ (dùng cho nhân viên Hyundai)</p>
+                    <p><i>6/ Đuổi hình bắt chữ -> Nhìn hình đoán chữ (dùng cho nhân viên Hyundai)</p>
                 </div> 
                 <div class="form-group">
                     <label>Nếu chọn trò chơi Khảo sát nhập link google form:</label>

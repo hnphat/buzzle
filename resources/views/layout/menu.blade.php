@@ -60,6 +60,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('duoihinhbatchu.panel')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               New App 2
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -273,11 +273,17 @@ class CauHinhController extends Controller
                     } else
                         return "<h1 style='color:red;'>Bạn cần đăng nhập để chơi trò chơi này!</h1>";
                 }; 
-                default: return "Máy chủ đang bảo trì!";
+                case 6: {
+                    if (Auth::check()) {
+                        return view('trochoi.duoihinhbatchu');
+                    } else
+                        return "<h1 style='color:red;'>Bạn cần đăng nhập để chơi trò chơi này!</h1>";
+                }; 
+                default: return "<h1 style='color:red;'>Máy chủ đang bảo trì!</h1>";
             }
         }
         else 
-            return "Phần thưởng từ chương trình đã hết, xin quý khách vui lòng tham gia vào lần sau nhé. Xin cảm ơn quý khách!";
+            return "<h1 style='color:red;'>Phần thưởng từ chương trình đã hết, xin quý khách vui lòng tham gia vào lần sau nhé. Xin cảm ơn quý khách!</h1>";
     }
 
     public function getTraLoiCauHoi() {
